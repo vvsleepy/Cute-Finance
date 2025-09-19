@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Made Cute ✨ - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #fce7f3 0%, #e0e7ff 20%, #dcfce7 40%, #dbeafe 60%, #fce7f3 80%, #f3e8ff 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .card-hover {
+            transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(1deg); }
+            50% { transform: translateY(-15px) rotate(0deg); }
+            75% { transform: translateY(-8px) rotate(-1deg); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .phone-frame {
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border-radius: 35px;
+            padding: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+        }
+        
+        .phone-screen {
+            border-radius: 25px;
+            overflow: hidden;
+            aspect-ratio: 9/19.5;
+            position: relative;
+        }
+        
+        .wireframe {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            border: 2px dashed #cbd5e1;
+        }
+        
+        .mockup-1 { background: linear-gradient(135deg, #fce7f3, #f3e8ff); }
+        .mockup-2 { background: linear-gradient(135deg, #dcfce7, #dbeafe); }
+        .mockup-3 { background: linear-gradient(135deg, #fef3c7, #fce7f3); }
+        .mockup-4 { background: linear-gradient(135deg, #e0e7ff, #dcfce7); }
+        
+        .hero-illustration {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        
+        .sparkle {
+            position: absolute;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        .bounce-in {
+            opacity: 0;
+            transform: scale(0.3) translateY(50px);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .bounce-in.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+        
+        .rotate-in {
+            opacity: 0;
+            transform: rotate(-180deg) scale(0.5);
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .rotate-in.visible {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+        
+        .slide-up {
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .zoom-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .stagger-animation {
+            transition-delay: calc(var(--stagger-delay) * 0.1s);
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(236, 72, 153, 0.6);
+                transform: scale(1.02);
+            }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes text-shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        
+        .text-shimmer {
+            background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6, #ec4899);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: text-shimmer 3s linear infinite;
+        }
+        
+        .morphing-bg {
+            background: linear-gradient(45deg, #fce7f3, #e0e7ff, #dcfce7, #dbeafe);
+            background-size: 400% 400%;
+            animation: morphing 8s ease-in-out infinite;
+        }
+        
+        @keyframes morphing {
+            0%, 100% { 
+                background-position: 0% 50%;
+                border-radius: 30px;
+            }
+            25% { 
+                background-position: 100% 0%;
+                border-radius: 50px;
+            }
+            50% { 
+                background-position: 100% 100%;
+                border-radius: 20px;
+            }
+            75% { 
+                background-position: 0% 100%;
+                border-radius: 40px;
+            }
+        }
+        
+        .tilt-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .tilt-hover:hover {
+            transform: translateY(-8px) scale(1.02) rotateX(5deg) rotateY(5deg);
+        }
+        
+        @keyframes float-rotate {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% { 
+                transform: translateY(-15px) rotate(5deg);
+            }
+            66% { 
+                transform: translateY(-8px) rotate(-3deg);
+            }
+        }
+        
+        .float-rotate {
+            animation: float-rotate 6s ease-in-out infinite;
+        }
+        
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(45deg, #fce7f3, #e0e7ff);
+            border-radius: 25px;
+            border: 2px solid #ec4899;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-magical {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-magical::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-magical:hover::before {
+            left: 100%;
+        }
+        
+        .btn-magical:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.4);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen overflow-x-hidden">
+    <!-- Sparkle Effects -->
+    <div class="sparkle text-pink-300 text-2xl" style="top: 10%; left: 10%; animation-delay: 0s;">✨</div>
+    <div class="sparkle text-purple-300 text-xl" style="top: 20%; right: 15%; animation-delay: 1s;">💫</div>
+    <div class="sparkle text-blue-300 text-lg" style="top: 60%; left: 5%; animation-delay: 2s;">⭐</div>
+    <div class="sparkle text-pink-300 text-xl" style="bottom: 20%; right: 10%; animation-delay: 1.5s;">✨</div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-4 py-20">
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <div class="text-center lg:text-left">
+                <h1 class="text-5xl md:text-7xl font-bold text-shimmer mb-6 leading-tight">
+                    Finance Made Cute ✨
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-700 mb-8 font-medium leading-relaxed">
+                    Track your money weekly & monthly with joy 💖
+                </p>
+                <button class="btn-magical pulse-glow text-white px-10 py-4 rounded-full text-lg font-semibold shadow-lg">
+                    See My Designs
+                </button>
+            </div>
+            <div class="float-rotate hero-illustration">
+                <svg viewBox="0 0 300 300" class="w-full h-full">
+                    <!-- Phone -->
+                    <rect x="100" y="50" width="100" height="180" rx="20" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+                    <rect x="110" y="70" width="80" height="140" rx="10" fill="#fce7f3"/>
+                    
+                    <!-- Student Character -->
+                    <circle cx="150" cy="120" r="25" fill="#fbbf24"/>
+                    <circle cx="145" cy="115" r="2" fill="#374151"/>
+                    <circle cx="155" cy="115" r="2" fill="#374151"/>
+                    <path d="M 145 125 Q 150 130 155 125" stroke="#374151" stroke-width="2" fill="none"/>
+                    
+                    <!-- Hair -->
+                    <path d="M 125 105 Q 150 85 175 105 Q 170 95 150 95 Q 130 95 125 105" fill="#8b5cf6"/>
+                    
+                    <!-- Body -->
+                    <rect x="135" y="145" width="30" height="40" rx="15" fill="#ec4899"/>
+                    <rect x="125" y="155" width="15" height="25" rx="7" fill="#fbbf24"/>
+                    <rect x="160" y="155" width="15" height="25" rx="7" fill="#fbbf24"/>
+                    
+                    <!-- Money symbols floating around -->
+                    <text x="60" y="100" font-size="20" fill="#10b981">💰</text>
+                    <text x="220" y="120" font-size="18" fill="#f59e0b">💳</text>
+                    <text x="70" y="180" font-size="16" fill="#8b5cf6">📊</text>
+                    <text x="210" y="180" font-size="16" fill="#ec4899">💖</text>
+                    
+                    <!-- Sparkles -->
+                    <text x="80" y="80" font-size="12" fill="#fbbf24" class="floating" style="animation-delay: 0.5s;">✨</text>
+                    <text x="200" y="90" font-size="14" fill="#ec4899" class="floating" style="animation-delay: 1s;">⭐</text>
+                    <text x="90" y="200" font-size="10" fill="#8b5cf6" class="floating" style="animation-delay: 1.5s;">💫</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="slide-in-left">
+                <div class="text-6xl mb-8 bounce-in">😰</div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-8">The Problem</h2>
+                <div class="glass-card rounded-3xl p-8 md:p-12 shadow-xl">
+                    <p class="text-xl md:text-2xl text-gray-700 leading-relaxed">
+                        Most finance apps feel <span class="font-bold text-red-500">boring and stressful</span>. 
+                        Students want something <span class="font-bold text-gradient">simple, cute, and motivating</span> 🌈
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="slide-in-right">
+                <div class="text-6xl mb-8 rotate-in">💡</div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-8">My Solution</h2>
+                <div class="glass-card rounded-3xl p-8 md:p-12 shadow-xl">
+                    <p class="text-xl md:text-2xl text-gray-700 leading-relaxed">
+                        I designed a finance tracker that feels like <span class="font-bold text-purple-600">journaling</span> — 
+                        colorful, friendly, and easy to use 📝✨
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-16 fade-in">Key Features</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="morphing-bg p-8 text-center card-hover tilt-hover bounce-in shadow-xl" style="transition-delay: 0.1s;">
+                    <div class="text-6xl mb-6 float-rotate" style="animation-delay: 0s;">📅</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Weekly Tracking</h3>
+                    <p class="text-gray-600 leading-relaxed">Simple weekly expense logging with cute categories</p>
+                </div>
+                <div class="morphing-bg p-8 text-center card-hover tilt-hover bounce-in shadow-xl" style="transition-delay: 0.2s;">
+                    <div class="text-6xl mb-6 float-rotate" style="animation-delay: 1s;">📊</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Monthly Insights</h3>
+                    <p class="text-gray-600 leading-relaxed">Beautiful charts that make data feel friendly</p>
+                </div>
+                <div class="morphing-bg p-8 text-center card-hover tilt-hover bounce-in shadow-xl" style="transition-delay: 0.3s;">
+                    <div class="text-6xl mb-6 float-rotate" style="animation-delay: 2s;">🛍️</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Expense Categories</h3>
+                    <p class="text-gray-600 leading-relaxed">Fun icons for food, shopping, and entertainment</p>
+                </div>
+                <div class="morphing-bg p-8 text-center card-hover tilt-hover bounce-in shadow-xl" style="transition-delay: 0.4s;">
+                    <div class="text-6xl mb-6 float-rotate" style="animation-delay: 3s;">🌸</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Cute Reminders</h3>
+                    <p class="text-gray-600 leading-relaxed">Gentle notifications that motivate, not stress</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wireframes Gallery -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-16 fade-in">Wireframes</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="gradient-border card-hover slide-up tilt-hover" style="transition-delay: 0.1s;">
+                    <div class="phone-screen wireframe flex flex-col items-center justify-center p-6">
+                        <div class="text-5xl mb-6 bounce-in" style="transition-delay: 0.5s;">📱</div>
+                        <div class="text-sm font-semibold text-gray-600 mb-4">Onboarding</div>
+                        <div class="space-y-3 w-full">
+                            <div class="w-full h-3 bg-gray-300 rounded-full"></div>
+                            <div class="w-3/4 h-3 bg-gray-300 rounded-full mx-auto"></div>
+                            <div class="w-5/6 h-3 bg-gray-300 rounded-full mx-auto"></div>
+                        </div>
+                        <div class="mt-6 w-20 h-8 bg-gray-400 rounded-full"></div>
+                    </div>
+                </div>
+                <div class="gradient-border card-hover slide-up tilt-hover" style="transition-delay: 0.2s;">
+                    <div class="phone-screen wireframe flex flex-col items-center justify-center p-6">
+                        <div class="text-5xl mb-6 bounce-in" style="transition-delay: 0.6s;">📊</div>
+                        <div class="text-sm font-semibold text-gray-600 mb-4">Dashboard</div>
+                        <div class="space-y-3 w-full">
+                            <div class="w-full h-3 bg-gray-300 rounded-full"></div>
+                            <div class="w-3/4 h-3 bg-gray-300 rounded-full mx-auto"></div>
+                            <div class="w-5/6 h-3 bg-gray-300 rounded-full mx-auto"></div>
+                        </div>
+                        <div class="mt-6 w-20 h-8 bg-gray-400 rounded-full"></div>
+                    </div>
+                </div>
+                <div class="gradient-border card-hover slide-up tilt-hover" style="transition-delay: 0.3s;">
+                    <div class="phone-screen wireframe flex flex-col items-center justify-center p-6">
+                        <div class="text-5xl mb-6 bounce-in" style="transition-delay: 0.7s;">🏷️</div>
+                        <div class="text-sm font-semibold text-gray-600 mb-4">Categories</div>
+                        <div class="space-y-3 w-full">
+                            <div class="w-full h-3 bg-gray-300 rounded-full"></div>
+                            <div class="w-3/4 h-3 bg-gray-300 rounded-full mx-auto"></div>
+                            <div class="w-5/6 h-3 bg-gray-300 rounded-full mx-auto"></div>
+                        </div>
+                        <div class="mt-6 w-20 h-8 bg-gray-400 rounded-full"></div>
+                    </div>
+                </div>
+                <div class="gradient-border card-hover slide-up tilt-hover" style="transition-delay: 0.4s;">
+                    <div class="phone-screen wireframe flex flex-col items-center justify-center p-6">
+                        <div class="text-5xl mb-6 bounce-in" style="transition-delay: 0.8s;">📈</div>
+                        <div class="text-sm font-semibold text-gray-600 mb-4">Monthly Summary</div>
+                        <div class="space-y-3 w-full">
+                            <div class="w-full h-3 bg-gray-300 rounded-full"></div>
+                            <div class="w-3/4 h-3 bg-gray-300 rounded-full mx-auto"></div>
+                            <div class="w-5/6 h-3 bg-gray-300 rounded-full mx-auto"></div>
+                        </div>
+                        <div class="mt-6 w-20 h-8 bg-gray-400 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Designs Gallery -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-16 fade-in">Final Designs</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="gradient-border card-hover zoom-in tilt-hover" style="transition-delay: 0.1s;">
+                    <div class="phone-screen mockup-1 flex flex-col items-center justify-center p-6">
+                        <div class="text-6xl mb-6 float-rotate" style="animation-delay: 0s;">🌸</div>
+                        <div class="text-xl font-bold text-gray-800 mb-2">Welcome!</div>
+                        <div class="text-sm text-gray-600 text-center mb-6">Let's make finance fun</div>
+                        <div class="w-full bg-white/50 rounded-full h-3 mb-4">
+                            <div class="bg-pink-400 h-3 rounded-full w-3/4 transition-all duration-1000"></div>
+                        </div>
+                        <div class="bg-white/80 rounded-2xl px-6 py-3 text-sm font-semibold shadow-lg pulse-glow">Get Started ✨</div>
+                    </div>
+                </div>
+                <div class="gradient-border card-hover zoom-in tilt-hover" style="transition-delay: 0.2s;">
+                    <div class="phone-screen mockup-2 flex flex-col items-center justify-center p-6">
+                        <div class="text-2xl font-bold text-gray-800 mb-4">This Week 💖</div>
+                        <div class="text-4xl font-bold text-green-600 mb-2 bounce-in" style="transition-delay: 0.8s;">$127.50</div>
+                        <div class="text-sm text-gray-600 mb-6">spent so far</div>
+                        <div class="space-y-3 w-full">
+                            <div class="bg-white/80 rounded-xl p-4 flex items-center shadow-sm slide-in-left" style="transition-delay: 1s;">
+                                <span class="text-2xl mr-4 float-rotate" style="animation-delay: 1s;">🍕</span>
+                                <div>
+                                    <div class="text-sm font-semibold">Food</div>
+                                    <div class="text-xs text-gray-600">$45.00</div>
+                                </div>
+                            </div>
+                            <div class="bg-white/80 rounded-xl p-4 flex items-center shadow-sm slide-in-right" style="transition-delay: 1.2s;">
+                                <span class="text-2xl mr-4 float-rotate" style="animation-delay: 2s;">🛍️</span>
+                                <div>
+                                    <div class="text-sm font-semibold">Shopping</div>
+                                    <div class="text-xs text-gray-600">$82.50</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gradient-border card-hover zoom-in tilt-hover" style="transition-delay: 0.3s;">
+                    <div class="phone-screen mockup-3 flex flex-col items-center justify-center p-6">
+                        <div class="text-2xl font-bold text-gray-800 mb-6">Categories 🏷️</div>
+                        <div class="grid grid-cols-2 gap-4 w-full">
+                            <div class="bg-white/80 rounded-2xl p-4 text-center shadow-sm bounce-in" style="transition-delay: 0.8s;">
+                                <div class="text-3xl mb-2 float-rotate" style="animation-delay: 0s;">🍕</div>
+                                <div class="text-xs font-semibold">Food</div>
+                            </div>
+                            <div class="bg-white/80 rounded-2xl p-4 text-center shadow-sm bounce-in" style="transition-delay: 1s;">
+                                <div class="text-3xl mb-2 float-rotate" style="animation-delay: 1s;">🚗</div>
+                                <div class="text-xs font-semibold">Transport</div>
+                            </div>
+                            <div class="bg-white/80 rounded-2xl p-4 text-center shadow-sm bounce-in" style="transition-delay: 1.2s;">
+                                <div class="text-3xl mb-2 float-rotate" style="animation-delay: 2s;">🛍️</div>
+                                <div class="text-xs font-semibold">Shopping</div>
+                            </div>
+                            <div class="bg-white/80 rounded-2xl p-4 text-center shadow-sm bounce-in" style="transition-delay: 1.4s;">
+                                <div class="text-3xl mb-2 float-rotate" style="animation-delay: 3s;">🎮</div>
+                                <div class="text-xs font-semibold">Fun</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gradient-border card-hover zoom-in tilt-hover" style="transition-delay: 0.4s;">
+                    <div class="phone-screen mockup-4 flex flex-col items-center justify-center p-6">
+                        <div class="text-2xl font-bold text-gray-800 mb-4">November 📊</div>
+                        <div class="bg-white/80 rounded-2xl p-5 w-full mb-4 shadow-sm morphing-bg">
+                            <div class="text-2xl font-bold text-purple-600 mb-2 text-shimmer">$456.78</div>
+                            <div class="text-xs text-gray-600 mb-4">Total spent</div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-xs slide-in-left" style="transition-delay: 1s;">
+                                    <span class="flex items-center"><span class="mr-2 float-rotate" style="animation-delay: 0s;">🍕</span>Food</span>
+                                    <span class="font-semibold">$180</span>
+                                </div>
+                                <div class="flex justify-between text-xs slide-in-left" style="transition-delay: 1.2s;">
+                                    <span class="flex items-center"><span class="mr-2 float-rotate" style="animation-delay: 1s;">🛍️</span>Shopping</span>
+                                    <span class="font-semibold">$156</span>
+                                </div>
+                                <div class="flex justify-between text-xs slide-in-left" style="transition-delay: 1.4s;">
+                                    <span class="flex items-center"><span class="mr-2 float-rotate" style="animation-delay: 2s;">🚗</span>Transport</span>
+                                    <span class="font-semibold">$120.78</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-center text-gray-600 bg-white/60 rounded-lg px-3 py-2 pulse-glow">Great job staying on budget! 🌟</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="fade-in">
+                <div class="text-6xl mb-8 floating">✨</div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-8">The Result</h2>
+                <div class="glass-card rounded-3xl p-8 md:p-12 shadow-xl">
+                    <p class="text-xl md:text-2xl text-gray-700 leading-relaxed mb-8">
+                        Finance doesn't have to be scary. With cute design and simple flows, 
+                        Gen-Z can manage money with <span class="font-bold text-gradient">joy</span> ✨💖
+                    </p>
+                    <div class="flex justify-center space-x-6 text-5xl">
+                        <span class="floating" style="animation-delay: 0s;">💖</span>
+                        <span class="floating" style="animation-delay: 0.5s;">🌸</span>
+                        <span class="floating" style="animation-delay: 1s;">✨</span>
+                        <span class="floating" style="animation-delay: 1.5s;">🌈</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .bounce-in, .rotate-in, .slide-up, .zoom-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Enhanced smooth scrolling for CTA button with cool transitions
+        document.querySelector('.btn-magical').addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Add click ripple effect
+            const ripple = document.createElement('div');
+            const rect = e.target.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.style.position = 'absolute';
+            ripple.style.borderRadius = '50%';
+            ripple.style.background = 'rgba(255,255,255,0.6)';
+            ripple.style.transform = 'scale(0)';
+            ripple.style.animation = 'ripple 0.6s linear';
+            ripple.style.pointerEvents = 'none';
+            
+            e.target.style.position = 'relative';
+            e.target.appendChild(ripple);
+            
+            // Remove ripple after animation
+            setTimeout(() => ripple.remove(), 600);
+            
+            // Smooth scroll to wireframes section with easing
+            const targetSection = document.querySelector('section:nth-child(6)'); // Wireframes section
+            const targetPosition = targetSection.offsetTop - 100;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            const duration = 1500;
+            let start = null;
+            
+            function smoothScroll(timestamp) {
+                if (!start) start = timestamp;
+                const progress = timestamp - start;
+                const percentage = Math.min(progress / duration, 1);
+                
+                // Easing function for smooth animation
+                const easeInOutCubic = percentage < 0.5 
+                    ? 4 * percentage * percentage * percentage 
+                    : 1 - Math.pow(-2 * percentage + 2, 3) / 2;
+                
+                window.scrollTo(0, startPosition + distance * easeInOutCubic);
+                
+                if (progress < duration) {
+                    requestAnimationFrame(smoothScroll);
+                }
+            }
+            
+            requestAnimationFrame(smoothScroll);
+        });
+
+        // Enhanced card interactions - shadow only
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.boxShadow = '0 25px 50px rgba(0,0,0,0.15)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.boxShadow = '0 15px 35px rgba(0,0,0,0.1)';
+            });
+        });
+
+        // Parallax effect for sparkles
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const sparkles = document.querySelectorAll('.sparkle');
+            
+            sparkles.forEach((sparkle, index) => {
+                const speed = 0.5 + (index * 0.1);
+                sparkle.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Enhanced magical cursor trail effect
+        let mouseTrail = [];
+        const trailLength = 15;
+        const sparkleEmojis = ['✨', '💫', '⭐', '🌟', '💖', '🌸', '🦄', '🌈'];
+        
+        document.addEventListener('mousemove', (e) => {
+            // Add current position to trail
+            mouseTrail.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+            
+            // Keep trail length manageable
+            if (mouseTrail.length > trailLength) {
+                mouseTrail.shift();
+            }
+            
+            // Create sparkle trail (less frequent)
+            if (Math.random() > 0.85) {
+                createTrailSparkle(e.clientX, e.clientY);
+            }
+            
+            // Create floating cursor glow
+            createCursorGlow(e.clientX, e.clientY);
+        });
+
+        function createTrailSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            const randomEmoji = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+            sparkle.innerHTML = randomEmoji;
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = (x + Math.random() * 40 - 20) + 'px';
+            sparkle.style.top = (y + Math.random() * 40 - 20) + 'px';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.fontSize = (Math.random() * 8 + 8) + 'px';
+            sparkle.style.zIndex = '9999';
+            sparkle.style.opacity = '0';
+            sparkle.style.transform = 'scale(0) rotate(0deg)';
+            sparkle.style.transition = 'all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            
+            document.body.appendChild(sparkle);
+            
+            // Animate in
+            setTimeout(() => {
+                sparkle.style.opacity = '1';
+                sparkle.style.transform = `scale(1) rotate(${Math.random() * 360}deg) translateY(-30px)`;
+            }, 10);
+            
+            // Animate out and remove
+            setTimeout(() => {
+                sparkle.style.opacity = '0';
+                sparkle.style.transform = `scale(0) rotate(${Math.random() * 720}deg) translateY(-60px)`;
+            }, 800);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 2000);
+        }
+
+        function createCursorGlow(x, y) {
+            const glow = document.createElement('div');
+            glow.style.position = 'fixed';
+            glow.style.left = (x - 15) + 'px';
+            glow.style.top = (y - 15) + 'px';
+            glow.style.width = '30px';
+            glow.style.height = '30px';
+            glow.style.borderRadius = '50%';
+            glow.style.background = 'radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, rgba(139, 92, 246, 0.2) 50%, transparent 70%)';
+            glow.style.pointerEvents = 'none';
+            glow.style.zIndex = '9998';
+            glow.style.opacity = '1';
+            glow.style.transform = 'scale(1)';
+            glow.style.transition = 'all 0.8s ease-out';
+            
+            document.body.appendChild(glow);
+            
+            // Animate out
+            setTimeout(() => {
+                glow.style.opacity = '0';
+                glow.style.transform = 'scale(2)';
+            }, 10);
+            
+            setTimeout(() => {
+                glow.remove();
+            }, 800);
+        }
+
+        // Create rainbow trail on click
+        document.addEventListener('click', (e) => {
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    createClickBurst(e.clientX, e.clientY, i);
+                }, i * 50);
+            }
+        });
+
+        function createClickBurst(x, y, index) {
+            const burst = document.createElement('div');
+            const colors = ['#ec4899', '#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ef4444'];
+            const angle = (index * 45) * (Math.PI / 180);
+            const distance = 50 + Math.random() * 30;
+            
+            burst.innerHTML = sparkleEmojis[index % sparkleEmojis.length];
+            burst.style.position = 'fixed';
+            burst.style.left = x + 'px';
+            burst.style.top = y + 'px';
+            burst.style.pointerEvents = 'none';
+            burst.style.fontSize = '16px';
+            burst.style.zIndex = '9999';
+            burst.style.color = colors[index % colors.length];
+            burst.style.transform = 'scale(0) rotate(0deg)';
+            burst.style.transition = 'all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            
+            document.body.appendChild(burst);
+            
+            // Animate burst
+            setTimeout(() => {
+                const endX = x + Math.cos(angle) * distance;
+                const endY = y + Math.sin(angle) * distance;
+                burst.style.transform = `translate(${endX - x}px, ${endY - y}px) scale(1.5) rotate(720deg)`;
+                burst.style.opacity = '0';
+            }, 10);
+            
+            setTimeout(() => {
+                burst.remove();
+            }, 1000);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98137153200ec1bf',t:'MTc1ODIyNTc2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
